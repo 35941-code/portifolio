@@ -1,0 +1,280 @@
+/* =========================================================
+   Portfólio · Julia Mota de Aro — versão minimalista
+   Para trocar a identidade visual, mexa só nas variáveis abaixo.
+   ========================================================= */
+
+/* ---------- 1. VARIÁVEIS ---------- */
+:root {
+  /* Paleta base */
+  --carbon-black: #1c1c1c;
+  --alabaster-grey: #daddd8;
+  --soft-linen: #ecebe4;
+  --platinum: #eef0f2;
+  --ghost-white: #fafaff;
+
+  /* Fontes */
+  --font-title: "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-text: "Inter", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Medidas */
+  --pad: clamp(1.25rem, 4vw, 3rem);
+  --maxw: 1320px;
+  --bar-h: 64px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* MODO CLARO (padrão) */
+[data-theme="light"] {
+  --bg: var(--ghost-white);
+  --fill: var(--soft-linen);
+  --fill-2: var(--platinum);
+  --text: var(--carbon-black);
+  --line: var(--alabaster-grey);
+  --line-strong: #8f918d;
+  color-scheme: light;
+}
+/* MODO ESCURO */
+[data-theme="dark"] {
+  --bg: var(--carbon-black);
+  --fill: #272727;
+  --fill-2: #303030;
+  --text: var(--ghost-white);
+  --line: rgba(218, 221, 216, .2);
+  --line-strong: #8a8c88;
+  color-scheme: dark;
+}
+:root { --muted: color-mix(in srgb, var(--text) 66%, var(--bg)); }
+
+/* ---------- 2. BASE ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 1rem); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 1rem/1.6 var(--font-text); -webkit-font-smoothing: antialiased;
+}
+.js body:not(.is-ready), body.menu-open { overflow: hidden; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; padding: 0; }
+li { list-style: none; }
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-title); font-weight: 300; letter-spacing: -.02em; }
+.mono { font-family: var(--font-mono); font-size: .88em; }
+.muted { color: var(--muted); }
+.ph { color: var(--muted); }
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+::selection { background: var(--text); color: var(--bg); }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 2px; }
+
+.skip-link { position: fixed; top: -100px; left: 1rem; z-index: 100; background: var(--text); color: var(--bg); padding: .6rem 1rem; }
+.skip-link:focus { top: 1rem; }
+
+/* Transição suave entre temas (classe só existe durante a troca) */
+html.theme-transition, html.theme-transition *, html.theme-transition *::before, html.theme-transition *::after {
+  transition: background-color .5s ease, color .5s ease, border-color .5s ease, fill .5s ease !important;
+}
+
+/* ---------- 3. LINKS E BOTÕES ---------- */
+.link, .brand {
+  color: inherit; text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+  transition: background-size .4s var(--ease);
+  padding-bottom: 2px;
+}
+.link:hover, .link:focus-visible { background-size: 100% 1px; }
+
+.text-btn { font: 400 .9rem var(--font-text); color: var(--text); background: none; border: 0; cursor: pointer; padding: .6rem .25rem; min-height: 44px; }
+.text-btn:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .6rem; min-height: 48px; padding: .8rem 1.6rem;
+  font: 400 .95rem var(--font-text); color: var(--bg); background: var(--text);
+  border: 1px solid var(--text); border-radius: 999px; cursor: pointer;
+  transition: background-color .25s, color .25s, transform .15s var(--ease);
+}
+.btn .arrow { transition: transform .3s var(--ease); }
+.btn:hover { background: transparent; color: var(--text); }
+.btn:hover .arrow { transform: translateX(5px); }
+.btn:active { transform: scale(.97); }
+
+/* ---------- 4. LOADING ---------- */
+.loader { position: fixed; inset: 0; z-index: 200; display: grid; place-content: center; justify-items: center; gap: .4rem; background: var(--bg); transition: opacity .6s ease, visibility .6s; }
+.loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-name { font: 300 clamp(1.6rem, 5vw, 2.4rem) var(--font-title); letter-spacing: -.02em; opacity: 0; transform: translateY(8px); animation: fadeUp .7s var(--ease) .1s forwards; }
+.loader-sub { font: .8rem var(--font-mono); color: var(--muted); opacity: 0; animation: fadeUp .6s var(--ease) .4s forwards; }
+.loader-line { width: min(220px, 60vw); height: 1px; margin-top: 1.2rem; background: var(--line); position: relative; overflow: hidden; }
+.loader-line::after { content: ""; position: absolute; inset: 0; background: var(--text); transform: scaleX(0); transform-origin: left; animation: fill 1.2s var(--ease) .2s forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+@keyframes fill { to { transform: scaleX(1); } }
+
+/* ---------- 5. BARRA SUPERIOR / MENU ---------- */
+.topbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 60; height: var(--bar-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: 0 var(--pad);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent; transition: border-color .3s;
+}
+.topbar.scrolled { border-bottom-color: var(--line); }
+.brand { font-size: .95rem; font-weight: 500; letter-spacing: -.01em; }
+.tools { display: flex; align-items: center; gap: 1rem; }
+.menu-btn { display: none; }
+
+.nav ul { display: flex; gap: clamp(1rem, 2.4vw, 2.2rem); }
+.nav a {
+  position: relative; display: inline-block; padding: .5rem 0; font-size: .9rem; color: var(--muted); text-decoration: none;
+  transition: color .25s;
+}
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: .25rem; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease); }
+.nav a:hover { color: var(--text); }
+.nav a:hover::after { transform: scaleX(1); }
+.nav a.is-active { color: var(--text); }
+.nav a.is-active::after { transform: scaleX(1); }
+
+@media (min-width: 860px) { .nav { margin-left: auto; } }
+
+/* Celular/tablet: menu em tela cheia */
+@media (max-width: 859px) {
+  .menu-btn { display: inline-flex; align-items: center; }
+  .nav {
+    position: fixed; inset: 0; z-index: -1; background: var(--bg);
+    display: flex; align-items: center; padding: var(--bar-h) var(--pad) 2rem;
+    opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s;
+  }
+  body.menu-open .nav { opacity: 1; visibility: visible; }
+  .nav ul { flex-direction: column; gap: .2rem; width: 100%; }
+  .nav li { border-bottom: 1px solid var(--line); }
+  .nav a { width: 100%; padding: 1rem 0; font: 300 clamp(2rem, 9vw, 3rem)/1.1 var(--font-title); letter-spacing: -.02em; }
+  .nav a::after { display: none; }
+  .nav a.is-active::before { content: "→ "; }
+  .topbar { background: var(--bg); }
+}
+
+/* ---------- 6. TÍTULOS E LINHAS (estrutura em 3 colunas) ---------- */
+.display { font-size: clamp(3.4rem, 13vw, 10rem); line-height: .95; letter-spacing: -.045em; }
+.display-2 { font-size: clamp(2.8rem, 9vw, 6.5rem); line-height: 1; letter-spacing: -.04em; margin-bottom: clamp(2rem, 5vw, 4rem); }
+
+.section { padding-top: clamp(5rem, 11vw, 9rem); }
+
+.rows { border-top: 1px solid var(--line-strong); }
+.row {
+  display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem 1.5rem;
+  padding: 1.4rem 0; border-bottom: 1px solid var(--line); align-items: start;
+}
+.row .c1 { grid-column: 1 / 5; }
+.row .c2 { grid-column: 5 / 9; font-size: .95rem; max-width: 42ch; }
+.row .c3 { grid-column: 9 / 13; }
+.row h3 { font-size: 1.2rem; font-weight: 400; letter-spacing: -.01em; }
+
+@media (max-width: 859px) {
+  .row { grid-template-columns: 1fr; }
+  .row .c1, .row .c2, .row .c3 { grid-column: 1 / -1; max-width: none; }
+}
+
+/* ---------- 7. ANIMAÇÕES AO ROLAR (IntersectionObserver) ---------- */
+.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- 8. INÍCIO ---------- */
+.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-top: calc(var(--bar-h) + 3rem); padding-bottom: 2.5rem; }
+.eyebrow { font: .85rem var(--font-mono); color: var(--muted); margin-bottom: clamp(1.5rem, 5vw, 3.5rem); }
+.display { margin-bottom: clamp(2rem, 6vw, 4.5rem); }
+.mask { display: block; overflow: hidden; padding-bottom: .08em; }
+.line { display: block; }
+.js .line { transform: translateY(105%); }
+.is-ready .line { animation: lineUp 1s var(--ease) forwards; }
+.is-ready .mask:nth-child(2) .line { animation-delay: .12s; }
+@keyframes lineUp { to { transform: none; } }
+.js .eyebrow, .js .hero-rows { opacity: 0; }
+.is-ready .eyebrow { animation: fadeUp .8s var(--ease) .1s forwards; }
+.is-ready .hero-rows { animation: fadeUp .8s var(--ease) .5s forwards; }
+.hero-rows .row { border-bottom: 0; padding-bottom: 0; }
+.hero-rows .c1 { font-size: 1.2rem; font-weight: 400; }
+.hero-rows .c3 { font-size: .95rem; }
+.hero-rows .c3 .link { display: inline-block; margin-top: .6rem; color: var(--text); }
+
+/* ---------- 9. SOBRE MIM ---------- */
+.about-row { padding: 1.6rem 0 2rem; }
+.about-main { grid-column: 1 / 9; display: grid; gap: 1rem; max-width: 60ch; }
+.about-main .lead { font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.35; font-weight: 300; letter-spacing: -.015em; }
+.photo { grid-column: 9 / 13; }
+@media (max-width: 859px) { .about-main, .photo { grid-column: 1 / -1; } .photo { max-width: 320px; } }
+
+.media {
+  width: 100%; aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden;
+  background: var(--fill); color: var(--muted);
+  transition: transform .6s var(--ease), background-color .3s;
+}
+.media.portrait { aspect-ratio: 4 / 5; }
+img.media { object-fit: cover; }
+
+.facts { margin-top: 1.5rem; border-top: 1px solid var(--line); }
+.facts > div { display: grid; grid-template-columns: minmax(120px, 40%) 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--muted); font-size: .9rem; }
+.facts dd { margin: 0; font-size: .95rem; }
+@media (max-width: 480px) { .facts > div { grid-template-columns: 1fr; gap: .1rem; } }
+
+/* ---------- 10. HABILIDADES ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip {
+  font: .8rem var(--font-mono); padding: .35rem .8rem; border: 1px solid var(--line-strong); border-radius: 999px;
+  transition: background-color .25s, color .25s, border-color .25s, transform .25s var(--ease); cursor: default;
+}
+.chip:hover { background: var(--text); color: var(--bg); border-color: var(--text); transform: translateY(-2px); }
+.chip.empty { border-style: dashed; color: var(--muted); }
+.chip.empty:hover { color: var(--bg); }
+.chips.small { margin-top: .9rem; }
+.chips.small .chip { font-size: .72rem; padding: .25rem .65rem; }
+
+/* ---------- 11. PROJETOS ---------- */
+.projects .row { transition: opacity .4s ease, background-color .4s ease, padding .4s var(--ease); }
+.project .idx { color: var(--muted); margin-right: .6rem; }
+.project h3 .mono { font-family: var(--font-text); font-size: 1em; }
+.project .c2 p .mono { font-family: var(--font-text); font-size: 1em; }
+.proj-links { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin-top: 1rem; font-size: .9rem; }
+.proj-links .link { min-height: 28px; }
+
+/* O projeto explorado ganha destaque e os outros recuam */
+.projects:has(.row:hover, .row:focus-within) .row:not(:hover):not(:focus-within) { opacity: .35; }
+.projects .row:hover, .projects .row:focus-within { background: linear-gradient(90deg, var(--fill-2), transparent 80%); }
+.projects .row:hover .media, .projects .row:focus-within .media { transform: scale(1.025); }
+@media (hover: none) { .projects:has(.row:hover) .row:not(:hover) { opacity: 1; } }
+
+/* ---------- 12. CONTATO ---------- */
+.contact { padding: 2rem 0 2.5rem; }
+.form { grid-column: 1 / 8; display: grid; gap: 1.4rem; }
+.socials { grid-column: 9 / 13; }
+@media (max-width: 859px) { .form, .socials { grid-column: 1 / -1; } }
+
+.field label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: .2rem; }
+.field input, .field textarea {
+  width: 100%; min-height: 48px; padding: .7rem 0; font: 400 1.1rem var(--font-text); color: var(--text);
+  background: transparent; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0;
+  transition: border-color .25s, box-shadow .25s;
+}
+.field textarea { resize: vertical; min-height: 110px; }
+.field input:hover, .field textarea:hover { border-bottom-color: var(--text); }
+.field input:focus, .field textarea:focus { outline: none; border-bottom-color: var(--text); box-shadow: 0 1px 0 0 var(--text); }
+.field [aria-invalid="true"] { border-bottom-color: var(--text); box-shadow: 0 2px 0 0 var(--text); animation: shake .35s; }
+.error { min-height: 1.3em; margin-top: .3rem; font-size: .85rem; font-weight: 500; }
+.error:not(:empty)::before { content: "↳ "; }
+@keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+.form .btn { justify-self: start; }
+.form-status { font-size: .95rem; }
+.form-status.show { padding: 1rem 1.2rem; background: var(--fill); animation: fadeUp .5s var(--ease) both; }
+
+.socials li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.socials li:first-child { padding-top: 0; }
+.socials li:last-child { border-bottom: 0; }
+
+.footer { margin-top: clamp(4rem, 9vw, 8rem); padding-top: 1.5rem; padding-bottom: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1.5rem; font-size: .85rem; color: var(--muted); }
+.footer p { margin: 0; }
+
+/* ---------- 13. MOVIMENTO REDUZIDO ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .js .reveal, .js .line, .js .eyebrow, .js .hero-rows { opacity: 1; transform: none; }
+}

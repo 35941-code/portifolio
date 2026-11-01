@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Julia Mota de Aro — Estudante de Tecnologia</title>
+  <meta name="description" content="Portfólio de Julia Mota de Aro, estudante do Ensino Médio Técnico em Informática. Projetos, habilidades e contato.">
+  <meta name="theme-color" content="#fafaff">
+
+  <!-- Aplica o tema salvo antes de pintar a página (evita flash) -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      try {
+        var saved = localStorage.getItem('jm-theme');
+        if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <noscript><style>#loader{display:none!important}</style></noscript>
+</head>
+<body>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ================= LOADING ================= -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <p class="loader-name">Julia Mota de Aro</p>
+    <p class="loader-sub">carregando…</p>
+    <span class="loader-line" aria-hidden="true"></span>
+  </div>
+
+  <!-- ================= BARRA SUPERIOR ================= -->
+  <header class="topbar">
+    <a class="brand" href="#inicio">Julia Mota de Aro</a>
+
+    <nav id="nav" class="nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="#inicio" data-spy>Início</a></li>
+        <li><a href="#sobre" data-spy>Sobre mim</a></li>
+        <li><a href="#habilidades" data-spy>Habilidades</a></li>
+        <li><a href="#projetos" data-spy>Projetos</a></li>
+        <li><a href="#contato" data-spy>Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <button id="theme-toggle" class="text-btn" type="button" aria-pressed="false">Escuro</button>
+      <button id="menu-btn" class="text-btn menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ================= INÍCIO ================= -->
+    <section id="inicio" class="hero wrap" aria-labelledby="hero-title">
+      <p class="eyebrow">Portfólio</p>
+      <h1 id="hero-title" class="display">
+        <span class="mask"><span class="line">Julia</span></span>
+        <span class="mask"><span class="line">Mota de Aro</span></span>
+      </h1>
+
+      <div class="rows hero-rows">
+        <div class="row">
+          <p class="c1">Estudante de Tecnologia</p>
+          <p class="c2 muted">Aprendendo, testando, quebrando e consertando, uma linha de código de cada vez.</p>
+          <p class="c3 muted">Ensino Médio Técnico em Informática<br><a class="link" href="#projetos">Ver projetos ↓</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SOBRE MIM ================= -->
+    <section id="sobre" class="section wrap" aria-labelledby="sobre-title">
+      <h2 id="sobre-title" class="display-2 reveal">Sobre mim</h2>
+
+      <div class="rows reveal">
+        <div class="row about-row">
+          <div class="about-main">
+            <p class="lead">
+              Oi, eu sou a Julia. Estou cursando o Ensino Médio Técnico em Informática e, por enquanto,
+              meu trabalho favorito é aprender, errar e tentar de novo.
+            </p>
+            <p class="muted">
+              Este portfólio é o meu caderno de bordo: cresce junto com o que eu aprendo.
+              Se algo estiver vazio, é porque ainda estou construindo.
+            </p>
+
+            <dl class="facts">
+              <div><dt>Estudando</dt><dd>Ensino Médio Técnico em Informática</dd></div>
+              <div><dt>Escola</dt><dd class="mono ph">Colégio Raphael di Santo</dd></div>
+              <div><dt>Cidade</dt><dd class="mono ph">Campinas</dd></div>
+              <div><dt>Área que mais me atrai</dt><dd class="mono ph">Desenvolvimento Back-End</dd></div>
+            </dl>
+          </div>
+
+          <figure class="photo">
+            <!-- Para usar sua foto, troque o .media por:
+                 <img src="foto.jpg" alt="Foto de Julia Mota de Aro" width="480" height="600"> -->
+            <div class="media portrait" role="img" aria-label="Espaço reservado para a foto da Julia">
+              <span class="mono">[PREENCHER: foto]</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HABILIDADES ================= -->
+    <section id="habilidades" class="section wrap" aria-labelledby="hab-title">
+      <h2 id="hab-title" class="display-2 reveal">Habilidades</h2>
+
+      <!-- Para editar: troque cada [PREENCHER] por uma tecnologia. Copie/apague <li> à vontade. -->
+      <div class="rows reveal">
+        <div class="row">
+          <h3 class="c1">Linguagens</h3>
+          <p class="c2 muted">O que eu escrevo.</p>
+          <ul class="c3 chips">
+            <li class="chip empty">Python</li><li class="chip empty">JavaScript</li><li class="chip empty">Java</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 class="c1">Desenvolvimento Web</h3>
+          <p class="c2 muted">O que vai parar no navegador.</p>
+          <ul class="c3 chips">
+            <li class="chip empty">HTML5</li><li class="chip empty">CSS3</li><li class="chip empty">JavaScript</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 class="c1">Ferramentas</h3>
+          <p class="c2 muted">O que me ajuda no caminho.</p>
+          <ul class="c3 chips">
+            <li class="chip empty">VS Code</li><li class="chip empty">Postgree</li><li class="chip empty">Figma</li>
+          </ul>
+        </div>
+        <div class="row">
+          <h3 class="c1">Em aprendizado</h3>
+          <p class="c2 muted">O que ainda está no forno.</p>
+          <ul class="c3 chips">
+            <li class="chip empty">Design</li><li class="chip empty">Node.js</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJETOS ================= -->
+    <section id="projetos" class="section wrap" aria-labelledby="proj-title">
+      <h2 id="proj-title" class="display-2 reveal">Explorar</h2>
+
+      <!--
+        COMO ADICIONAR UM PROJETO:
+        1. Copie um <li class="row project"> inteiro.
+        2. Troque número, título, descrição, tecnologias e links.
+        3. Para usar imagem, troque o <div class="media"> por:
+           <img class="media" src="imagens/projeto.png" alt="Descrição da imagem" loading="lazy">
+        Sem código público? Apague o link "Código".
+      -->
+      <ol class="rows projects reveal">
+
+        <li class="row project">
+          <h3 class="c1"><span class="idx mono">01</span> <span class="mono ph">THIEF!</span></h3>
+          <div class="c2">
+            <p class="muted"><span class="mono ph">Um jogo web para solucionar casos criminosos.</span></p>
+            <ul class="chips small" aria-label="Tecnologias"><li class="chip empty">HTML, CSS e JavaScript</li></ul>
+            <p class="proj-links">  
+              <a class="link" href="#" data-placeholder>Ver projeto <span class="mono ph">https://thief-eight.vercel.app/</span></a>
+              <a class="link" href="#" data-placeholder>Código <span class="mono ph">https://github.com/35941-code/THIEF-</span></a>
+            </p>
+          </div>
+          <div class="c3"><div class="media" role="img" aria-label="Espaço reservado para a imagem do projeto 1"><span class="mono"><div class="">
+          <img src="./img/logo.png" alt=""></span></div></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ================= CONTATO ================= -->
+    <section id="contato" class="section wrap" aria-labelledby="contato-title">
+      <h2 id="contato-title" class="display-2 reveal">Contato</h2>
+
+      <div class="rows reveal">
+        <div class="row contact">
+          <form id="contact-form" class="form" novalidate>
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" aria-describedby="err-nome" required>
+              <p class="error" id="err-nome"></p>
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" autocomplete="email" aria-describedby="err-email" required>
+              <p class="error" id="err-email"></p>
+            </div>
+            <div class="field">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" rows="4" aria-describedby="err-mensagem" required></textarea>
+              <p class="error" id="err-mensagem"></p>
+            </div>
+            <button class="btn" type="submit">Enviar mensagem <span class="arrow" aria-hidden="true">→</span></button>
+            <p id="form-status" class="form-status" role="status" tabindex="-1"></p>
+          </form>
+
+          <ul class="socials" aria-label="Outros contatos">
+            <li><span class="muted">GitHub</span> <a class="link" href="#" data-placeholder><span class="mono ph">github.com/35941-code</span></a></li>
+            <li><span class="muted">E-mail</span> <a class="link" href="#" data-placeholder><span class="mono ph">35941@raphaeldisanto.com.br</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer wrap">
+      <p>Feito à mão com HTML, CSS e JavaScript puro.</p>
+      <p>© <span id="year">2026</span> Julia Mota de Aro</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
